@@ -1,23 +1,30 @@
 import { useEffect, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 function Detail() {
-  
-  const {id} = useParams()
-  const [character,setCharacter]= useState({})
+
+  const { id } = useParams()
+  const [character, setCharacter] = useState({})
   useEffect(() => {
-    axios( `http://rym2-production.up.railway.app/api/character/${id}?key=henrym-enzosamojedny`).then(({ data }) => {
-       if (data.name) {
-          setCharacter(data);
-       } else {
-          window.alert('No hay personajes con ese ID');
-       }
+    axios(`http://rym2-production.up.railway.app/api/character/${id}?key=henrym-enzosamojedny`).then(({ data }) => {
+      if (data.name) {
+        setCharacter(data);
+      } else {
+        window.alert('No hay personajes con ese ID');
+      }
     });
     return setCharacter({});
- }, [id]);
+  }, [id]);
   return (
-    <div><h1>el id es {id}</h1></div>
+    <div>
+      <h2>{character?.name}</h2>
+      <h2>{character?.status}</h2>
+      <h2>{character?.species}</h2>
+      <h2>{character?.gender}</h2>
+      <h2>{character?.origin?.name}</h2>
+      <img src={character?.image} alt={character.name} />
+    </div>
   )
 }
 

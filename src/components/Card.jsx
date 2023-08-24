@@ -18,7 +18,7 @@ export default function Card(props) {
           props.onClose(id);
         }}>X</Button>
         
-        <Link to={ `/detail/:${id} `}><h2 className="card-name">{props.name}</h2></Link>
+        <Link to={ `/detail/${id} `}><h2 className="card-name">{props.name}</h2></Link>
       <h2>{props.status}</h2>
       <h2>{props.species}</h2>
       <h2>{props.gender}</h2>
