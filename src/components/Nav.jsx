@@ -1,8 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { Box, Button } from "@mui/material";
 
-function Nav({ onSearch, randomize }) {
+function Nav({ onSearch, randomize, setAccess }) {
+  const navigate = useNavigate()
+  const handleLogout = () => {
+    setAccess(false)
+    navigate('/');//not needed, but try it later
+  };
   return (
     <Box>
       <SearchBar onSearch={onSearch} />
@@ -37,6 +42,16 @@ function Nav({ onSearch, randomize }) {
           }}>Home
         </Button>
       </NavLink>
+      <Button
+        onClick={handleLogout}
+        size="medium"
+        style={{
+          color: "red",
+          marginRight: 50,
+          backgroundColor: "transparent",
+          fontWeight: 600
+        }}
+      >LOG OUT</Button>
     </Box>
 
   );
