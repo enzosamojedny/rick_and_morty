@@ -1,6 +1,6 @@
 import Card from "./Card";
 
-export default function Cards({ characters,onClose }) {
+export default function Cards({ characters, onClose }) {
   return (
     <div>
       {characters.map((character) => {
@@ -14,8 +14,7 @@ export default function Cards({ characters,onClose }) {
             gender={character.gender}
             origin={character.origin.name}
             image={character.image}
-            onClose={onClose
-            }
+            onClose={onClose}
           />
         );
       })}

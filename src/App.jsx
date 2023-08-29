@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Cards from "./components/Cards.jsx";
 import Nav from "./components/Nav";
-import "./App.css";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import Detail from "./components/views/Detail.jsx";
 import About from "./components/views/About.jsx";
 import Login from "./components/Login.jsx";
-
 import ErrorPage from "./components/views/ErrorPage.jsx";
+import Favorites from "./components/views/Favorites.jsx";
+import "./App.css";
 
 function App() {
   let location = useLocation()
@@ -21,7 +21,7 @@ function App() {
       })
     );
   }
-
+  //*! LOGIN ACCORDING TO SPECIFIC USER/PASSWORD
   const navigate = useNavigate();
   const [access, setAccess] = useState(false);
   const EMAIL = 'rick@gmail.com';
@@ -36,7 +36,7 @@ function App() {
     !access && navigate('/');
     //eslint-disable-next-line
   }, [access]);
-
+  //*!ONSEARCH
   function onSearch(id) {
     axios(
       `http://rym2-production.up.railway.app/api/character/${id}?key=henrym-enzosamojedny`
@@ -48,12 +48,11 @@ function App() {
       }
     });
   }
+  //*!RANDOMIZER
   function randomHandler() {
     let cache = [];
-
     let randomId = (Math.random() * 826).toFixed();
     randomId = Number(randomId);
-
     if (!cache.includes(randomId)) {
       cache.push(randomId);
       axios(
@@ -70,9 +69,7 @@ function App() {
       return;
     }
   }
-
   return (
-
     <div className="App">
       {!isHomePage && <Nav onSearch={onSearch} randomize={randomHandler} access={access} setAccess={setAccess} />}
       <Routes>
@@ -80,6 +77,7 @@ function App() {
         <Route path="/home" element={<Cards characters={characters} onClose={onClose} />} />
         <Route path="/about" element={<About />} />
         <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/favorites" element={<Favorites />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>

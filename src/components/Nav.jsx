@@ -42,6 +42,17 @@ function Nav({ onSearch, randomize, setAccess }) {
           }}>Home
         </Button>
       </NavLink>
+      <NavLink to={'/favorites'}>
+        <Button
+          size="medium"
+          style={{
+            color: "white",
+            marginRight: 50,
+            backgroundColor: "transparent",
+            fontWeight: 600
+          }}
+        >Favorites</Button>
+      </NavLink>
       <Button
         onClick={handleLogout}
         size="medium"

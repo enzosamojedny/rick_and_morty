@@ -29,7 +29,6 @@ function Login(login) {
                 [event.target.name]: event.target.value
             }
         ))
-        console.log(errors)
     }
     function submitHandler(event) {
         //envio inputs a la database
