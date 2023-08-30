@@ -12,8 +12,13 @@ import "./App.css";
 
 function App() {
   let location = useLocation()
-  const [characters, setCharacters] = useState([]);
   const isHomePage = location.pathname === '/'
+  const [characters, setCharacters] = useState([]);
+  const [access, setAccess] = useState(false);
+  const navigate = useNavigate();
+
+  //*! ONCLOSE FUNCTION
+
   function onClose(id) {
     setCharacters(
       characters.filter((character) => {
@@ -21,11 +26,12 @@ function App() {
       })
     );
   }
-  //*! LOGIN ACCORDING TO SPECIFIC USER/PASSWORD
-  const navigate = useNavigate();
-  const [access, setAccess] = useState(false);
+
+  //*! LOGIN ACCORDING TO SPECIFIC USER/PASSWORD (--not used--)
+
   const EMAIL = 'rick@gmail.com';
   const PASSWORD = 'rickpassword';
+
   function login(userData) {
     if (userData.password === PASSWORD && userData.email === EMAIL) {
       setAccess(true);
@@ -36,7 +42,8 @@ function App() {
     !access && navigate('/');
     //eslint-disable-next-line
   }, [access]);
-  //*!ONSEARCH
+
+  //*! ONSEARCH
   function onSearch(id) {
     axios(
       `http://rym2-production.up.railway.app/api/character/${id}?key=henrym-enzosamojedny`
@@ -48,27 +55,25 @@ function App() {
       }
     });
   }
-  //*!RANDOMIZER
+
+  //*! RANDOMIZER
+
   function randomHandler() {
-    let cache = [];
+    let memoria = [];
+
     let randomId = (Math.random() * 826).toFixed();
+
     randomId = Number(randomId);
-    if (!cache.includes(randomId)) {
-      cache.push(randomId);
-      axios(
-        `http://rym2-production.up.railway.app/api/character/${randomId}?key=henrym-enzosamojedny`
-      ).then(({ data }) => {
-        if (data.name) {
-          setCharacters((oldChars) => [...oldChars, data]);
-        } else {
-          window.alert("¡No hay personajes con este ID!");
-        }
-      });
+
+    if (!memoria.includes(randomId)) {
+      memoria.push(randomId);
+      onSearch(randomId);
     } else {
-      alert("Ese personaje ya fue agregado, coleguilla");
+      alert("Ese personaje ya fue agregado");
       return;
     }
   }
+
   return (
     <div className="App">
       {!isHomePage && <Nav onSearch={onSearch} randomize={randomHandler} access={access} setAccess={setAccess} />}

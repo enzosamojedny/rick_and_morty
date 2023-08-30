@@ -6,38 +6,54 @@ import { useEffect, useState } from "react";
 
 
 function Card(props) {
-  const character = { props }
-  const { id, removeFav, addFav, myFavorites } = props;
-
-  const [isFav, setIsFav] = useState(false)
+  const [isFav, setFav] = useState(false);
+  const {
+    id,
+    name,
+    status,
+    gender,
+    image,
+    species,
+    origin,
+    onClose,
+    myFavorites,
+    removeFav,
+    addFav,
+  } = props
+  //*const [closeBtn, setCloseBtn] = useState(true)
 
   useEffect(() => {
     myFavorites.forEach((fav) => {
       if (fav.id === id) {
-        setIsFav(true);
+        setFav(true);
       }
     });
-  }, [myFavorites]);
+  }, [myFavorites, id]);
 
-  function handleFavorite(character) {
+  function handleFavorite() {
     if (!isFav) {
-      addFav(character)
-      setIsFav(true)
+      addFav(
+        id,
+        name,
+        status,
+        gender,
+        image,
+        species,
+        origin
+      )
+      setFav(true);
     } else {
-      removeFav(character.id)
-      setIsFav(false)
-      // addFav(id, props.image, props.status, props.species, props.gender, props.origin)
+      setFav(false);
+      removeFav(id);
     }
   }
   return (
     <div>
-      {
-        isFav ? (
-          <Button onClick={() => handleFavorite(id)}>❤️</Button>
-        ) : (
-          <Button onClick={() => handleFavorite(character)}>🤍</Button>
-        )
-      }
+      {isFav ? (
+        <Button onClick={() => handleFavorite(id)}>❤️</Button>
+      ) : (
+        <Button onClick={() => handleFavorite(id)}>🤍</Button>
+      )}
       <Button
         size="medium"
         style={{
@@ -47,31 +63,34 @@ function Card(props) {
           fontWeight: 600,
         }}
         onClick={() => {
-          props.onClose(id);
-        }}>X</Button>
-
-      <NavLink to={`/detail/${id} `}><h2 className="card-name">{props.name}</h2></NavLink>
-      <h2>{props.status}</h2>
-      <h2>{props.species}</h2>
-      <h2>{props.gender}</h2>
-      <h2>{props.origin}</h2>
-      <img src={props.image} alt="" />
+          onClose(id);
+        }}
+      >
+        X
+      </Button>
+      <NavLink to={`/detail/${id}`}>
+        <h2 className="card-name">{name}</h2>
+      </NavLink>
+      <h2>{status}</h2>
+      <h2>{species}</h2>
+      <h2>{gender}</h2>
+      <h2>{origin}</h2>
+      <img src={image} alt={`${name}`} />
     </div>
   );
 }
+
 function mapStateToProps(state) {
   return {
-    myFavorites: state.myFavorites
-  }
+    myFavorites: state.myFavorites,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     addFav: (character) => dispatch(addFav(character)),
-    removeFav: (id) => dispatch(removeFav(id))
-  }
+    removeFav: (id) => dispatch(removeFav(id)),
+  };
 }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Card)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);
