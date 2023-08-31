@@ -4,8 +4,8 @@ import Cards from '../Cards';
 
 function Favorites() {
     const dispatch = useDispatch()
-    const favorites = useSelector(state => state.favorites)
-
+    const favorites = useSelector(state => state.myFavorites)//! state.favorites
+    console.log(favorites)//! clg
     function sortHandler(event) {
         dispatch(sortCards(event.target.value))
     }
@@ -29,7 +29,7 @@ function Favorites() {
             </select>
             <button onClick={resetHandler}>RESET</button>
             <Cards characters={favorites} />
-        </div>  
+        </div>
     );
 }
 export default Favorites

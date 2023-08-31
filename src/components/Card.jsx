@@ -32,17 +32,22 @@ function Card(props) {
 
   function handleFavorite() {
     if (!isFav) {
+
       addFav(
-        id,
-        name,
-        status,
-        gender,
-        image,
-        species,
-        origin
+
+        {
+          id,
+          name,
+          status,
+          gender,
+          image,
+          species,
+          origin
+        }
       )
       setFav(true);
     } else {
+
       setFav(false);
       removeFav(id);
     }
