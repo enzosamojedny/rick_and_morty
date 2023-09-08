@@ -5,7 +5,7 @@ import Cards from '../Cards';
 function Favorites() {
     const dispatch = useDispatch()
     const favorites = useSelector(state => state.myFavorites)//! state.favorites
-    console.log(favorites)//! clg
+
     function sortHandler(event) {
         dispatch(sortCards(event.target.value))
     }
