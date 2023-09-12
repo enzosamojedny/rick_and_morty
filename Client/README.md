@@ -141,19 +141,7 @@ Dirígete al archivo **`index.js`** en el que tienes tu servidor. Aquí deberás
 2. Copia este middleware en tu servidor:
 
    ```js
-   server.use((req, res, next) => {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Credentials', 'true');
-      res.header(
-         'Access-Control-Allow-Headers',
-         'Origin, X-Requested-With, Content-Type, Accept'
-      );
-      res.header(
-         'Access-Control-Allow-Methods',
-         'GET, POST, OPTIONS, PUT, DELETE'
-      );
-      next();
-   });
+   v
    ```
 
 3. Crea un middleware que ejecute a **`express.json()`**.

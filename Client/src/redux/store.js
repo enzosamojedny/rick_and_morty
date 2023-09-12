@@ -1,11 +1,11 @@
-import { createStore } from "redux";
-
+import { createStore, applyMiddleware, compose } from "redux";
+import thunkMiddleware from "redux-thunk";
 import reducer from "./reducer";
-import { composeWithDevTools } from "redux-devtools-extension";
 
+const composeEnhancer = window.REDUX_DEVTOOLS_EXTENSION_COMPOSE || compose;
 const store = createStore(
-    reducer,
-    composeWithDevTools()
+  reducer,
+  composeEnhancer(applyMiddleware(thunkMiddleware)) //Esta linea sirve para que podamos hacer peticiones a una Api/servidor
 );
 
 export default store;
