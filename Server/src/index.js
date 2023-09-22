@@ -3,7 +3,7 @@ const mainRouter = require("./routes/mainRouter");
 const morgan = require("morgan");
 const server = express();
 const PORT = 3001;
-
+const { conn } = require("./DB_connection");
 server.use(express.json());
 server.use(morgan("dev"));
 
@@ -19,5 +19,6 @@ server.use((req, res, next) => {
 });
 server.use("/rickandmorty", mainRouter);
 server.listen(PORT, () => {
+  conn.sync({ force: false });
   console.log(`Server raised in port" + ${PORT}`);
 });
